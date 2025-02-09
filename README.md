@@ -1,66 +1,207 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel E-commerce Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Overview
+A robust e-commerce platform built with Laravel, featuring product management, shopping cart functionality, secure authentication, and an admin dashboard. This application provides a complete solution for online retail businesses.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Customer Features
+- User registration and authentication
+- Product browsing and searching
+- Detailed product views
+- Shopping cart management
+- Secure checkout process
+- Order history and tracking
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Admin Features
+- Product management (CRUD operations)
+- Order management
+- User management
+- Dashboard analytics
+- Inventory tracking
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Technical Requirements
 
-## Learning Laravel
+### Prerequisites
+- PHP >= 8.1
+- Composer
+- MySQL >= 5.7
+- Node.js & NPM
+- Laravel 10.x
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Server Requirements
+- Apache or Nginx
+- mod_rewrite enabled
+- SSL certificate (recommended for production)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Clone the repository
+```bash
+git clone [repository-url]
+cd [project-name]
+```
 
-## Laravel Sponsors
+2. Install PHP dependencies
+```bash
+composer install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+3. Install JavaScript dependencies
+```bash
+npm install
+```
 
-### Premium Partners
+4. Create environment file
+```bash
+cp .env.example .env
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+5. Generate application key
+```bash
+php artisan key:generate
+```
 
-## Contributing
+6. Configure database in `.env` file
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database_name
+DB_USERNAME=your_database_username
+DB_PASSWORD=your_database_password
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+7. Run migrations and seeders
+```bash
+php artisan migrate --seed
+```
 
-## Code of Conduct
+8. Build assets
+```bash
+npm run dev
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+9. Start the development server
+```bash
+php artisan serve
+```
 
-## Security Vulnerabilities
+## Project Structure
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Key Directories
+- `app/Http/Controllers/` - Contains all controllers
+- `app/Models/` - Contains all Eloquent models
+- `database/migrations/` - Contains all database migrations
+- `resources/views/` - Contains all Blade views
+- `routes/web.php` - Contains all web routes
+- `public/` - Contains all public assets
+
+### Routes Overview
+- `/` - Home page/Login redirect
+- `/login` - User login
+- `/register` - User registration
+- `/home` - User dashboard
+- `/products` - Product listing
+- `/cart` - Shopping cart
+- `/admin/*` - Admin routes
+
+## Authentication
+
+### User Roles
+- **Guest**: Can view products
+- **Customer**: Can purchase products
+- **Admin**: Full access to admin dashboard
+
+### Middleware
+- `auth`: Authentication check
+- `admin`: Admin role check
+
+## Database Schema
+
+### Main Tables
+- `users`
+- `products`
+- `orders`
+- `order_items`
+- `cart_items`
+
+## Security Measures
+- CSRF protection
+- SQL injection prevention
+- XSS protection
+- Authentication middleware
+- Admin route protection
+
+## Development Guidelines
+
+### Coding Standards
+- Follow PSR-12 coding standard
+- Use Laravel best practices
+- Maintain proper documentation
+- Write unit tests for new features
+
+### Git Workflow
+1. Create feature branch
+2. Develop feature
+3. Write tests
+4. Create pull request
+5. Code review
+6. Merge to main branch
+
+## Testing
+```bash
+# Run all tests
+php artisan test
+
+# Run specific test suite
+php artisan test --filter=ProductTest
+```
+
+## Deployment
+
+### Production Checklist
+1. Configure environment variables
+2. Optimize autoloader
+```bash
+composer install --optimize-autoloader --no-dev
+```
+3. Optimize configuration
+```bash
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+4. Set up proper permissions
+5. Configure web server
+6. Set up SSL certificate
+7. Configure database backups
+
+## Maintenance
+
+### Regular Tasks
+- Database backups
+- Log rotation
+- Security updates
+- Performance monitoring
+
+### Troubleshooting
+For common issues, check:
+1. Storage permissions
+2. Cache configuration
+3. Log files
+4. Database connections
+
+## Support
+For support and bug reports, please create an issue in the repository or contact the development team.
 
 ## License
+[Your License] - Please see the LICENSE file for details
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Contributors
+- Steve Ongera
+- InnovationHub softwares Ltd
+
+---
+
+*Last updated: 2/9/2025*
