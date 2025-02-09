@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\Cart;
 use App\Models\Location;
+use App\Models\Transaction;
+use Illuminate\Support\Facades\DB;
+
 
 
 
@@ -38,9 +41,9 @@ class OrderController extends Controller
         return view('checkout.index', compact('cartItems', 'totalAmount', 'locations'));
     }
 
-    // Process the checkout form
     public function processCheckout(Request $request)
     {
+        // Validate user input
         $request->validate([
             'full_name' => 'required|string|max:255',
             'email' => 'required|email',
@@ -49,20 +52,51 @@ class OrderController extends Controller
             'delivery_address' => 'required|exists:locations,id',
         ]);
 
+        // Get user cart items
         $cartItems = Cart::where('user_id', auth()->id())->with('product')->get();
-        $totalAmount = $cartItems->sum(fn($item) => $item->product->price * $item->quantity);
 
-        $transaction = Transaction::create([
-            'user_id' => auth()->id(),
-            'full_name' => $request->full_name,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'id_number' => $request->id_number,
-            'location_id' => $request->delivery_address,
-            'amount' => $totalAmount,
-            'status' => 'pending',
-        ]);
+        if ($cartItems->isEmpty()) {
+            return redirect()->back()->with('error', 'Your cart is empty!');
+        }
 
-        return redirect()->route('checkout.show')->with('success', 'Order placed successfully!');
+        // Calculate total amount
+        $totalAmount = 0;
+        foreach ($cartItems as $item) {
+            if (!$item->product) {
+                return redirect()->back()->with('error', 'Product not found in cart.');
+            }
+            $totalAmount += $item->product->price * $item->quantity;
+        }
+
+        DB::beginTransaction();
+
+        try {
+            // Save transaction
+            $transaction = Transaction::create([
+                'user_id' => auth()->id(),
+                'full_name' => $request->full_name,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                'id_number' => $request->id_number,
+                'location_id' => $request->delivery_address,
+                'amount' => $totalAmount,
+                'status' => 'pending',
+            ]);
+
+            if (!$transaction) {
+                throw new \Exception("Transaction could not be created.");
+            }
+
+            // Clear cart after successful order
+            Cart::where('user_id', auth()->id())->delete();
+
+            DB::commit(); // Commit transaction
+
+            return redirect()->route('checkout.show')->with('success', 'Order placed successfully!');
+        } catch (\Exception $e) {
+            DB::rollBack(); // Rollback if something goes wrong
+            return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage());
+        }
     }
+
 }

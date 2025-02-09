@@ -9,6 +9,9 @@
 
     <title>E-commerce</title>
 
+     <!-- Favicon -->
+     <link rel="icon" type="image/png" href="{{ asset('logo.png') }}" height=50 , width=50>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
