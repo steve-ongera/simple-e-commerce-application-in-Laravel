@@ -58,11 +58,19 @@
                     <!-- Right Side Icons -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Cart Icon -->
+                        
+                        @php
+                            $cartCount = \App\Models\Cart::where('user_id', auth()->id())->sum('quantity');
+                        @endphp
+
+                        <!-- Cart Icon -->
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ route('cart.index') }}">
-                                🛒 Cart <span class="badge bg-danger">{{ session('cart') ? count(session('cart')) : 0 }}</span>
+                                🛒 Cart <span class="badge bg-danger">{{ $cartCount }}</span>
                             </a>
                         </li>
+
+
 
                         <!-- User Authentication -->
                         @guest
