@@ -15,14 +15,18 @@
     <label>Price:</label>
     <input type="number" name="price" value="{{ $product->price }}" step="0.01" required>
 
-    <label>Category:</label>
-    <select name="category_id" required>
-        @foreach($categories as $category)
-        <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>
-            {{ $category->name }}
-        </option>
-        @endforeach
-    </select>
+    <div class="form-group">
+        <label for="category">Category</label>
+        <select name="category_id" id="category" class="form-control">
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}" {{ isset($product) && $product->category_id == $category->id ? 'selected' : '' }}>
+                    {{ $category->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+
 
     <label>Image:</label>
     <input type="file" name="image">

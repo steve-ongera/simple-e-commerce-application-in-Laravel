@@ -7,6 +7,10 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
+
+
+
 
 // Guest Routes
 Route::middleware('guest')->group(function () {
@@ -35,7 +39,15 @@ Route::middleware('auth')->group(function () {
         Route::post('/add/{product}', [CartController::class, 'add'])->name('add');
         Route::delete('/{id}', [CartController::class, 'remove'])->name('remove');
     });
-    Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+
+    // Show the checkout form
+    Route::get('/checkout', [OrderController::class, 'showCheckout'])->name('checkout.show');
+
+    // Process the checkout (Confirm Order & Pay)
+    Route::post('/checkout/process', [OrderController::class, 'processCheckout'])->name('checkout.process');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+
+
     
     // Auth
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -62,3 +74,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
      Route::delete('categories/{id}', [AdminController::class, 'categoryDestroy'])->name('categories.destroy');
 
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+});
+

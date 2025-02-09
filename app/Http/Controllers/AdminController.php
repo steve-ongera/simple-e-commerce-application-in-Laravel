@@ -45,16 +45,18 @@ class AdminController extends Controller
         return redirect()->route('admin.products.index')->with('success', 'Product added successfully.');
     }
 
+    // Show edit form for a specific product
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        return view('admin.products.edit', compact('product'));
+        $categories = Category::all(); // Fetch all categories
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-
+        
         $request->validate([
             'name' => 'required',
             'description' => 'required',
