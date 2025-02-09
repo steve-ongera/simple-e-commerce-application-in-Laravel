@@ -10,7 +10,7 @@
         <div class="col-md-6">
             <h1>{{ $product->name }}</h1>
             <p>Category: {{ $product->category->name }}</p>
-            <p>Price: ${{ $product->price }}</p>
+            <p>Price: ksh{{ $product->price }}</p>
             <p>{{ $product->description }}</p>
             
             <form action="{{ route('cart.add', $product->id) }}" method="POST">
