@@ -19,7 +19,7 @@
                 @foreach($orders as $order)
                     <tr>
                         <td>{{ $order->id }}</td>
-                        <td>KES {{ number_format($order->total_amount, 2) }}</td>
+                        <td>KES {{ number_format($order->amount, 2) }}</td>
                         <td>{{ ucfirst($order->status) }}</td>
                         <td>{{ $order->created_at->format('d M, Y') }}</td>
                     </tr>

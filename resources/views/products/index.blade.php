@@ -20,9 +20,11 @@
         </div>
         @endforeach
     </div>
+    
     <div class="d-flex justify-content-center mt-4">
-        {{ $products->links() }}
+        {{ $products->links('vendor.pagination.bootstrap-5') }}
     </div>
+
 </div>
 
 <style>

@@ -24,10 +24,7 @@ class OrderController extends Controller
 
     public function index()
     {
-        // Fetch orders for the logged-in user
-        $orders = Order::where('user_id', Auth::id())->get();
-
-        // Return the view with orders
+        $orders = Transaction::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
         return view('orders.index', compact('orders'));
     }
 
