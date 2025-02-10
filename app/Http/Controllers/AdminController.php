@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(10); // ✅ Correct (Paginate with 10 products per page)
         return view('admin.products.index', compact('products'));
     }
 
@@ -30,6 +30,9 @@ class AdminController extends Controller
             'price' => 'required|numeric',
             'category_id' => 'required|exists:categories,id', // Ensure category exists
             'image' => 'required|image',
+            'is_sponsored' => 'boolean',
+            'is_valentine' => 'boolean',
+            'sales_count' => 'integer',
         ]);
 
         $imagePath = $request->file('image')->store('products', 'public');
@@ -40,6 +43,9 @@ class AdminController extends Controller
             'price' => $request->price,
             'category_id' => $request->category_id,
             'image' => $imagePath,
+            'is_sponsored' => $request->has('is_sponsored'),
+            'is_valentine' => $request->has('is_valentine'),
+            'sales_count' => $request->input('sales_count', 0),
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product added successfully.');
@@ -61,6 +67,9 @@ class AdminController extends Controller
             'name' => 'required',
             'description' => 'required',
             'price' => 'required|numeric',
+            'is_sponsored' => 'boolean',
+            'is_valentine' => 'boolean',
+            'sales_count' => 'integer',
         ]);
 
         if ($request->hasFile('image')) {
@@ -72,6 +81,9 @@ class AdminController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
+            'is_sponsored' => $request->has('is_sponsored'),
+            'is_valentine' => $request->has('is_valentine'),
+            'sales_count' => $request->input('sales_count', 0),
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');

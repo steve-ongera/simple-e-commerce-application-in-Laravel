@@ -64,6 +64,10 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'image' => 'nullable|image',
             'category_id' => 'required|exists:categories,id',
+            'is_sponsored' => $request->has('is_sponsored'),
+            'is_valentine' => $request->has('is_valentine'),
+            'sales_count' => $request->input('sales_count', 0),
+
         ]);
 
         // Handle Image Upload
@@ -79,6 +83,9 @@ class ProductController extends Controller
             'price' => $request->price,
             'image' => $imagePath,
             'category_id' => $request->category_id,
+            'is_sponsored' => $request->has('is_sponsored'),
+            'is_valentine' => $request->has('is_valentine'),
+            'sales_count' => $request->input('sales_count', 0),
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product added successfully.');
@@ -103,6 +110,9 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'image' => 'nullable|image',
             'category_id' => 'required|exists:categories,id',
+            'is_sponsored' => $request->has('is_sponsored'),
+            'is_valentine' => $request->has('is_valentine'),
+            'sales_count' => $request->input('sales_count', 0),
         ]);
 
         if ($request->hasFile('image')) {
