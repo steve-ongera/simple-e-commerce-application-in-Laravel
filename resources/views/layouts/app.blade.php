@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>E-commerce</title>
+    <title>AfriMarket | 2025 </title>
 
      <!-- Favicon -->
      <link rel="icon" type="image/png" href="{{ asset('logo.png') }}" height=50 , width=50>
@@ -28,8 +28,8 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <!-- Logo -->
-                <a class="navbar-brand fw-bold" href="{{ url('/products') }}">
-                    E-Commerce
+                <a class="navbar-brand fw-bold" href="{{ url('/home') }}">
+                    AfriMarket
                 </a>
 
                 <!-- Toggle Button for Mobile -->

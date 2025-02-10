@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-commerce </title>
+    <title>AfriMarkete  | 2025 </title>
      <!-- Favicon -->
      <link rel="icon" type="image/png" href="{{ asset('logo.png') }}" height=50 , width=50>
     <!-- Bootstrap CSS -->

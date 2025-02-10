@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <!-- Hero Carousel -->
 <div id="heroCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
     <div class="carousel-indicators">

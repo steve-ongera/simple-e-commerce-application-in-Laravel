@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Admin | E-commerce</title>
+    <title>Admin | AfriMarket</title>
 
      <!-- Favicon -->
      <link rel="icon" type="image/png" href="{{ asset('logo.png') }}" height=50 , width=50>
