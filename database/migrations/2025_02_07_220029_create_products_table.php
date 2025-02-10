@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->integer('sales_count')->default(0);
+            $table->boolean('is_sponsored')->default(false);
         });
     }
 
